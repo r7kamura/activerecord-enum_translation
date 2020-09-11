@@ -46,15 +46,15 @@ en:
     attributes:
       user:
         status:
-          active: Active
-          inactive: Inactive
+          active: 利用中
+          inactive: 停止中
 ```
 
 Get the translation by `human_enum_name_for`:
 
 ```ruby
 user = User.new(status: :active)
-user.human_enum_name_for(:status)
+user.human_enum_name_for(:status) #=> "利用中"
 ```
 
 This gem also provides `human_enum_name_reader_for`:
@@ -70,7 +70,7 @@ Finally you can use `human_enum_name_for_status`:
 
 ```ruby
 user = User.new(status: :active)
-user.human_enum_name_for_status
+user.human_enum_name_for_status #=> "利用中"
 ```
 
 ## Development
