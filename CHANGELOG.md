@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Add `:count` option.
-- Add `"attributes.#{enum_name}.#{enum_value}" key.
+- Add `"attributes.#{enum_name}.#{enum_value}"` key.
 - Add humanized enum value as default value.
 - Support `i18n_scope` override.
 
