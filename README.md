@@ -41,7 +41,7 @@ end
 Add translations in your locale files:
 
 ```yaml
-en:
+ja:
   activerecord:
     attributes:
       user:
