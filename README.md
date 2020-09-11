@@ -55,7 +55,7 @@ user = User.new(status: :active)
 user.human_enum_name_for(:status)
 ```
 
-This gem also provides `human_name_reader_for`:
+This gem also provides `human_enum_name_reader_for`:
 
 ```ruby
 class User < ApplicationRecord
