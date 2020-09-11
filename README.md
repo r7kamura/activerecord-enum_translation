@@ -1,5 +1,7 @@
 # ActiveRecord::EnumTranslation
 
+[![Gem Version](https://badge.fury.io/rb/activerecord-enum_translation.svg)](https://rubygems.org/gems/activerecord-enum_translation)
+
 Provides integration between ActiveRecord::Enum and I18n.
 
 ## Installation
