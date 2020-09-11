@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    activerecord-enum_translation (0.1.0)
+    activerecord-enum_translation (0.2.0)
       activerecord
       activesupport
 
