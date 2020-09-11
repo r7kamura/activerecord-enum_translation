@@ -7,6 +7,7 @@ module ActiveRecord
 
     # Translates enum identifiers into a more human format, such as `"Active"` instead of `:active`.
     # @param [Symbol] enum_name
+    # @param [Integer] count
     # @param [Symbol, String, nil] default
     # @return [String, nil]
     # @example
@@ -14,33 +15,41 @@ module ActiveRecord
     #   User.new.human_enum_name_for(:status) #=> nil
     #   User.new.human_enum_name_for(:status, default: "Unknown") #=> "Unknown"
     #   User.new.human_enum_name_for(:status, default: :"common.unknown") #=> "Unknown"
-    def human_enum_name_for(enum_name, default: nil)
+    def human_enum_name_for(enum_name, count: 1, default: nil)
+      options = { count: count }
       enum_value = public_send(enum_name)
+      scope = "#{self.class.i18n_scope}.attributes"
+
       defaults = []
       if enum_value
         defaults += self.class.lookup_ancestors.map do |ancestor|
-          :"activerecord.attributes.#{ancestor.model_name.i18n_key}.#{enum_name}.#{enum_value}"
+          :"#{scope}.#{ancestor.model_name.i18n_key}.#{enum_name}.#{enum_value}"
         end
+        defaults << :"attributes.#{enum_name}.#{enum_value}"
       else
         defaults << nil
       end
       defaults << default if default
-      ::I18n.t(defaults.shift, default: defaults.empty? ? nil : defaults)
+      defaults << enum_value.humanize if enum_value
+
+      key = defaults.shift
+      options[:default] = defaults.empty? ? nil : defaults
+      ::I18n.t(key, options)
     end
 
     module ClassMethods
       # Defines handy reader method for enum translation.
       # @param [Symbol] enum_name
-      # @param [Symbol, String, nil] default
+      # @param [Hash] options
       # @example
       #   class User < ApplicationRecord
       #     human_enum_name_reader_for :status
       #   end
       #
       #   User.new(status: :active).human_enum_name_for_status #=> "Active"
-      def human_enum_name_reader_for(enum_name, default: nil)
-        define_method("human_enum_name_for_#{enum_name}") do
-          human_enum_name_for(enum_name, default: default)
+      def human_enum_name_reader_for(enum_name)
+        define_method("human_enum_name_for_#{enum_name}") do |**options|
+          human_enum_name_for(enum_name, **options)
         end
       end
     end

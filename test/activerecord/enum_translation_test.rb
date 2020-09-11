@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
     status: %i[
       active
       inactive
+      pending
     ]
   )
   human_enum_name_reader_for :status
@@ -30,6 +31,8 @@ I18n.backend.store_translations(
           status:
             active: Active
             inactive: Inactive
+    common:
+      unknown: Unknown
   YAML
 )
 
@@ -44,5 +47,35 @@ class EnumTranslationTest < Minitest::Test
     user = ::User.new(status: :active)
     actual = user.human_enum_name_for_status
     assert_equal actual, "Active"
+  end
+
+  def test_enum_value_is_nil
+    user = ::User.new
+    actual = user.human_enum_name_for_status
+    assert_nil actual
+  end
+
+  def test_default_is_nil
+    user = ::User.new
+    actual = user.human_enum_name_for_status(default: nil)
+    assert_nil actual
+  end
+
+  def test_default_is_string
+    user = ::User.new
+    actual = user.human_enum_name_for_status(default: "default")
+    assert_equal actual, "default"
+  end
+
+  def test_default_is_symbol
+    user = ::User.new
+    actual = user.human_enum_name_for_status(default: :"common.unknown")
+    assert_equal actual, "Unknown"
+  end
+
+  def test_default_is_missing_but_enum_value_exists
+    user = ::User.new(status: :pending)
+    actual = user.human_enum_name_for_status
+    assert_equal actual, "Pending"
   end
 end
