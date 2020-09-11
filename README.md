@@ -1,8 +1,6 @@
-# Activerecord::EnumTranslation
+# ActiveRecord::EnumTranslation
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/activerecord/enum_translation`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Provides integration between ActiveRecord::Enum and I18n.
 
 ## Installation
 
@@ -22,7 +20,56 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Include `ActiveRecord::EnumTranslation`:
+
+```ruby
+class ApplicationRecord < ActiveRecord::Base
+  include ActiveRecord::EnumTranslation
+end
+```
+
+Define enum:
+
+```ruby
+class User < ApplicationRecord
+  enum status: %i[active inactive]
+end
+```
+
+Add translations in your locale files:
+
+```yaml
+en:
+  activerecord:
+    attributes:
+      user:
+        status:
+          active: Active
+          inactive: Inactive
+```
+
+Get the translation by `human_enum_name_for`:
+
+```ruby
+user = User.new(status: :active)
+user.human_enum_name_for(:status)
+```
+
+This gem also provides `human_name_reader_for`:
+
+```ruby
+class User < ApplicationRecord
+  enum status: %i[active inactive]
+  human_enum_name_reader_for :status
+end
+```
+
+Finally you can use `human_enum_name_for_status`:
+
+```ruby
+user = User.new(status: :active)
+user.human_enum_name_for_status
+```
 
 ## Development
 
