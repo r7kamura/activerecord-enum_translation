@@ -3,6 +3,7 @@ require_relative 'lib/activerecord/enum_translation/version'
 Gem::Specification.new do |spec|
   spec.name          = "activerecord-enum_translation"
   spec.version       = ActiveRecord::EnumTranslation::VERSION
+  spec.licenses      = ["MIT"]
   spec.authors       = ["Ryo Nakamura"]
   spec.email         = ["r7kamura@gmail.com"]
 
