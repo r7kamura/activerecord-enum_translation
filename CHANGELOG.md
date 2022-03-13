@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Fixed
+
+- Fix keyword arguments handling for Ruby 3.0.
+
 ## 0.2.0 - 2020-09-12
 
 ### Added
