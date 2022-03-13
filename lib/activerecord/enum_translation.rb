@@ -34,7 +34,7 @@ module ActiveRecord
 
       key = defaults.shift
       options[:default] = defaults.empty? ? nil : defaults
-      ::I18n.t(key, options)
+      ::I18n.t(key, **options)
     end
 
     module ClassMethods
