@@ -1,5 +1,6 @@
 # ActiveRecord::EnumTranslation
 
+[![test](https://github.com/r7kamura/activerecord-enum_translation/actions/workflows/test.yml/badge.svg)](https://github.com/r7kamura/activerecord-enum_translation/actions/workflows/test.yml)
 [![Gem Version](https://badge.fury.io/rb/activerecord-enum_translation.svg)](https://rubygems.org/gems/activerecord-enum_translation)
 
 Provides integration between ActiveRecord::Enum and I18n.
